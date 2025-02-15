@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         h1
+         {
+              text-align: center;
+              font-size: 40px;
+              color: rgb(9, 59, 126);
+              margin-top: 5%;
+               
+         }
+         #content
+        {
+           display: grid;
+           grid-template-columns: repeat(3,2fr);
+           grid-gap: 10px;
+           padding-top: 2%;
+           
+        }
+        .box
+        {
+            border: 1px solid rgb(92, 142, 235);
+            padding: 3% 25px;
+            box-shadow: 3px 3px  5px rgb(145, 144, 144);
+            background-color: rgb(217, 225, 247);
+            
+        }
+        
+        .box img
+        {
+            margin-left: 30%;
+            margin-top: 2%;
+        }
+       
+      
+
+    </style>
+</head>
+<body>
+    <h1>WEATHER API</h1>
+    <div id="content"></div>
+   
+    
+</body>
+</html>
+
+<script>
+    function Fetchdata(){
+    fetch("https://reqres.in/api/users?page=2")
+    .then((res)=>res.json())
+    .then((data)=>CardList(data.data))
+    .catch((err)=>console.log(err))
+    }
+    Fetchdata()
+
+    function CardList(data)
+    {
+       let store=data.map((el)=>SingleCard( el.avatar,el.id,el.email,el.first_name,el.last_name))
+        document.getElementById("content").innerHTML=store.join('');
+    }
+
+    function SingleCard(avatar,id, email ,first_name, last_name){
+     
+        let Card=`
+    <div class="box">
+        <img src= "${avatar}" alt="">
+       <h4>Id :${id}</h4>
+       <h4>Email: ${email}</h4>
+       <h4>First name: ${first_name}</h4>
+       <h4>Last name: ${last_name}</h4>
+        
+       
+    </div>  
+    `
+      return Card
+    }
+    
+    </script>
